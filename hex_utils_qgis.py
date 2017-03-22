@@ -21,14 +21,15 @@
  ***************************************************************************/
 """
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import QAction, QIcon, QFileDialog, QPushButton
+from PyQt4.QtGui import QAction, QIcon, QFileDialog, QPushButton, QColor
 # Initialize Qt resources from file resources.py
 import resources
 # Import the code for the dialog
 from hex_utils_qgis_dialog import HexUtilsQGisDialog
 import os.path
 
-from qgis.gui import QgsMessageBar
+from qgis.gui import QgsMessageBar 
+from qgis.core import QgsRendererRangeV2, QgsSymbolV2, QgsGraduatedSymbolRendererV2
 from hex_utils.hasc import HASC
 
 
@@ -202,10 +203,10 @@ class HexUtilsQGis:
             fileName = self.dlg.lineEdit.text()
             
             # Load the HexASCII file
-            hexGrid = HASC()
+            hexASCII = HASC()
             try:
-                hexGrid.loadFromFile(fileName)
-                hexGrid.saveAsGML(fileName + ".gml")
+                hexASCII.loadFromFile(fileName)
+                hexASCII.saveAsGML(fileName + ".gml")
             except (ValueError, IOError) as ex:
                 self.iface.messageBar().pushMessage(
                      "Error", "Failed to load the raster %s: %s" % (fileName, ex), 
@@ -221,11 +222,33 @@ class HexUtilsQGis:
                      "Error", "Failed to add raster to the layer heap", 
                      level=QgsMessageBar.CRITICAL)    
 
+            self.createChoropleth(layer, hexASCII.min, hexASCII.max)
 
-    def showError(self):
-        self.iface.messageBar().pushMessage(
-                     "Error", self.message, 
-                     level=QgsMessageBar.CRITICAL)
+
+    def createChoropleth(self, layer, min, max, num_classes = 10):
+        
+        myTargetField = HASC().valueField 
+        myRangeList = []
+        myOpacity = 1
+        
+        step = (max - min) / num_classes
+        col_step = 256 / (num_classes - 1)
+        
+        for i in range(num_classes):
+            label = str(min + step * i) + " - " + str(min + step * (i + 1))
+            hex_level = hex(int(col_step * i)).split('x')[1]
+            if (len(hex_level) < 2):
+                hex_level = "0" + hex_level
+            colour = QColor("#" + hex_level + hex_level + hex_level)   
+            symbol = QgsSymbolV2.defaultSymbol(layer.geometryType()) 
+            symbol.setColor(colour)
+            symbol.setAlpha(myOpacity)
+            myRangeList.append(QgsRendererRangeV2(min + step * i, min + step * (i + 1), symbol, label))
+
+        renderer = QgsGraduatedSymbolRendererV2('', myRangeList)
+        renderer.setMode(QgsGraduatedSymbolRendererV2.EqualInterval)
+        renderer.setClassAttribute(myTargetField)
+        layer.setRendererV2(renderer)
 
         
     def select_file(self):
