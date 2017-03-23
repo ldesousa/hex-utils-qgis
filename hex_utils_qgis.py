@@ -29,7 +29,7 @@ from hex_utils_qgis_dialog import HexUtilsQGisDialog
 import os.path
 
 from qgis.gui import QgsMessageBar 
-from qgis.core import QgsRendererRangeV2, QgsSymbolV2, QgsGraduatedSymbolRendererV2
+from qgis.core import QgsRendererRangeV2, QgsGraduatedSymbolRendererV2, QgsFillSymbolV2
 from hex_utils.hasc import HASC
 
 
@@ -239,9 +239,11 @@ class HexUtilsQGis:
             hex_level = hex(int(col_step * i)).split('x')[1]
             if (len(hex_level) < 2):
                 hex_level = "0" + hex_level
-            colour = QColor("#" + hex_level + hex_level + hex_level)   
-            symbol = QgsSymbolV2.defaultSymbol(layer.geometryType()) 
-            symbol.setColor(colour)
+            colour = "#" + hex_level + hex_level + hex_level 
+            symbol = QgsFillSymbolV2.createSimple(
+                {'color': colour, 
+                 'color_border': colour,
+                 'width_border':'0'})
             symbol.setAlpha(myOpacity)
             myRangeList.append(QgsRendererRangeV2(min + step * i, min + step * (i + 1), symbol, label))
 
