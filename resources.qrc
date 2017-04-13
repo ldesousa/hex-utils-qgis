@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/plugins/HexUtilsQGis" >
-        <file>icon.png</file>
+        <file>icons/New.png</file>
+        <file>icons/Load.png</file>
     </qresource>
 </RCC>
