@@ -25,7 +25,8 @@ from PyQt4.QtGui import QAction, QIcon, QFileDialog, QPushButton, QColor
 # Initialize Qt resources from file resources.py
 import resources
 # Import the code for the dialog
-from hex_utils_qgis_dialog import HexUtilsQGisDialog
+from dialogue_load import DialogueLoad
+from dialogue_new import DialogueNew
 import os.path
 
 from qgis.gui import QgsMessageBar 
@@ -138,9 +139,6 @@ class HexUtilsQGis:
         :rtype: QAction
         """
 
-        # Create the dialog (after translation) and keep reference
-        self.dlg = HexUtilsQGisDialog()
-
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
         action.triggered.connect(callback)
@@ -162,22 +160,32 @@ class HexUtilsQGis:
 
         self.actions.append(action)
         
-        # Activate file search button
-        self.dlg.lineEdit.clear()
-        self.dlg.pushButton.clicked.connect(self.select_file)
-
         return action
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/HexUtilsQGis/icon.png'
+        icon_path = ':/plugins/HexUtilsQGis/icons/Load.png'
         self.add_action(
             icon_path,
             text=self.tr(u'Load HexASCII raster'),
             callback=self.run,
             parent=self.iface.mainWindow())
+        
+        # Create the dialog (after translation) and keep reference
+        self.dlg = DialogueLoad()
+        # Activate file search button
+        self.dlg.lineEdit.clear()
+        self.dlg.pushButton.clicked.connect(self.select_file)
+        
+        self.add_action(
+            ':/plugins/HexUtilsQGis/icons/New.png',
+            text=self.tr(u'Create new HexASCII raster'),
+            callback=self.runNew,
+            parent=self.iface.mainWindow())
 
+        # Create New dialogue
+        self.dlgNew = DialogueNew()
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -224,6 +232,14 @@ class HexUtilsQGis:
 
             self.createChoropleth(layer, hexASCII.min, hexASCII.max)
 
+
+    def runNew(self):
+        """Run method that performs all the real work"""
+        # show the dialog
+        self.dlgNew.show()
+        # Run the dialog event loop
+        result = self.dlgNew.exec_()
+            
 
     def createChoropleth(self, layer, min, max, num_classes = 10):
         
