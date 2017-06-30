@@ -29,7 +29,7 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="labelPathNew">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -65,7 +65,7 @@
     <string>...</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="labelSource">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -93,7 +93,10 @@
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="labelExtent">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -107,6 +110,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="northingTop">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -117,6 +123,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="northingBottom">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -127,6 +136,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="eastingLeft">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -137,6 +149,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="eastingRight">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -146,7 +161,10 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QLabel" name="labelNorthingBottom">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>185</x>
@@ -159,7 +177,10 @@
     <string>Bottom northing:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QLabel" name="labelNorthingTop">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>185</x>
@@ -172,7 +193,10 @@
     <string>Top northing:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_6">
+  <widget class="QLabel" name="labelEastingLeft">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>355</x>
@@ -185,7 +209,10 @@
     <string>Left easting:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_7">
+  <widget class="QLabel" name="labelEastingRight">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>15</x>
@@ -199,6 +226,9 @@
    </property>
   </widget>
   <widget class="QComboBox" name="comboBoxMethod">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>13</x>
@@ -218,7 +248,10 @@
     </property>
    </item>
   </widget>
-  <widget class="QLabel" name="label_8">
+  <widget class="QLabel" name="labelMethod">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>18</x>
@@ -231,7 +264,10 @@
     <string>Interpolation method</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_9">
+  <widget class="QLabel" name="labelPythonModule">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>236</x>
@@ -245,6 +281,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="pythonModule">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -255,6 +294,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="pythonFunction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -264,7 +306,10 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_10">
+  <widget class="QLabel" name="labelPythonFunction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>236</x>
@@ -278,6 +323,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="filePathSource">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -287,7 +335,10 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_11">
+  <widget class="QLabel" name="labelPathSource">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -301,6 +352,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="pushButtonSource">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>470</x>
