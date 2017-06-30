@@ -112,13 +112,45 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
         
         else:
             return
+        
+        
+    def checkOptions(self):
+        
+        if(self.comboBoxSource.currentText() == ""):
+            self.showMessage("Please select a source type.")
+            return False
+        
+        if(self.filePathNew.text() == None or self.filePathNew.text() == ""):
+            self.showMessage("Please provide an output file.")
+            return False
+        
+        if(self.comboBoxSource.currentText() != self.SOURCES[2]):
+            if(self.filePathSource.text() == None or self.filePathSource.text() == ""):
+                self.showMessage("Please select a source file.")
+                return False
+
+        if(self.comboBoxSource.currentText() != self.SOURCES[2]):
+            if(self.northingTop.text() == None or self.northingTop.text() == "" or 
+               self.northingBottom.text() == None or self.northingBottom.text() == "" or
+               self.eastingRight.text() == None or self.eastingRight.text() == "" or
+               self.eastingLeft.text() == None or self.eastingLeft.text() == ""):
+                self.showMessage("Extent is mandatory for this source type.")
+                return False               
+            if(self.pythonModule.text() == None or self.pythonModule.text() == ""):
+                self.showMessage("Please select a Python module.")
+                return False
+            if(self.pythonFunction.text() == None or self.pythonFunction.text() == ""):
+                self.showMessage("Please select a Python function in the module.")
+                return False
+            
+        return True
      
     def showMessage(self, msg):
                   
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText("This is a message box")
-        msg.setInformativeText("This is additional information")
+        msg.setInformativeText(msg)
         msg.setWindowTitle("MessageBox demo")
         msg.setDetailedText(msg)
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)

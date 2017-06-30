@@ -239,7 +239,15 @@ class HexUtilsQGis:
         self.dlgNew.show()
         # Run the dialog event loop
         result = self.dlgNew.exec_()
-            
+        # See if OK was pressed
+        if result:
+#             if self.dlgNew.checkOptions():
+#                 self.dlgNew.showMessage("All good!")    
+                
+            self.iface.messageBar().pushMessage(
+                     "Info", "Button OK pressed", 
+                     level=QgsMessageBar.INFO) 
+                
 
     def createChoropleth(self, layer, min, max, num_classes = 10):
         
