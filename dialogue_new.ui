@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Hexagonal Rasters</string>
   </property>
-  <widget class="QDialogButtonBox" name="button_box">
+  <widget class="QDialogButtonBox" name="buttonOK">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -42,7 +42,7 @@
     <string>Select path to new HexASCII file:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="filePathNew">
    <property name="geometry">
     <rect>
      <x>120</x>
@@ -52,7 +52,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButtonNew">
    <property name="geometry">
     <rect>
      <x>460</x>
@@ -78,7 +78,7 @@
     <string>Type of source:</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="comboBoxSource">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -89,17 +89,7 @@
    </property>
    <item>
     <property name="text">
-     <string>ASCII squared raster</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>CSV file</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Python function</string>
+     <string/>
     </property>
    </item>
   </widget>
@@ -116,7 +106,7 @@
     <string>Extent:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="northingTop">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -126,7 +116,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
+  <widget class="QLineEdit" name="northingBottom">
    <property name="geometry">
     <rect>
      <x>180</x>
@@ -136,7 +126,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_4">
+  <widget class="QLineEdit" name="eastingLeft">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -146,7 +136,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_5">
+  <widget class="QLineEdit" name="eastingRight">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -208,7 +198,7 @@
     <string>Right easting:</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox_2">
+  <widget class="QComboBox" name="comboBoxMethod">
    <property name="geometry">
     <rect>
      <x>13</x>
@@ -254,7 +244,7 @@
     <string>Python module:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_6">
+  <widget class="QLineEdit" name="pythonModule">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -264,7 +254,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_7">
+  <widget class="QLineEdit" name="pythonFunction">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -287,7 +277,7 @@
     <string>Function:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_8">
+  <widget class="QLineEdit" name="filePathSource">
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -307,10 +297,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>Select path to new HexASCII file:</string>
+    <string>Select path to source file:</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="pushButtonSource">
    <property name="geometry">
     <rect>
      <x>470</x>

@@ -24,12 +24,16 @@
 import os
 
 from PyQt4 import QtGui, uic
+from PyQt4.QtGui import QMessageBox
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'dialogue_new.ui'))
 
 
 class DialogueNew(QtGui.QDialog, FORM_CLASS):
+    
+    SOURCES = ["ASCII squared raster", "CSV file", "Python function"]
+    
     def __init__(self, parent=None):
         """Constructor."""
         super(DialogueNew, self).__init__(parent)
@@ -39,3 +43,67 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+        
+        self.comboBoxSource.addItems(self.SOURCES)
+        self.comboBoxSource.currentIndexChanged.connect(self.sourceChanged)
+        
+        
+    def sourceChanged(self, i):
+        
+        if(self.comboBoxSource.currentText() == self.SOURCES[0]):
+            self.filePathSource.setEnabled(True)
+            self.pushButtonSource.setEnabled(True)
+            self.northingTop.setEnabled(False)
+            self.northingBottom.setEnabled(False)
+            self.eastingRight.setEnabled(False)
+            self.eastingLeft.setEnabled(False)
+            self.comboBoxMethod.setEnabled(False)
+            self.pythonModule.setEnabled(False)
+            self.pythonFunction.setEnabled(False)
+            
+        elif(self.comboBoxSource.currentText() == self.SOURCES[1]):
+            self.filePathSource.setEnabled(True)
+            self.pushButtonSource.setEnabled(True)
+            self.northingTop.setEnabled(True)
+            self.northingBottom.setEnabled(True)
+            self.eastingRight.setEnabled(True)
+            self.eastingLeft.setEnabled(True)
+            self.comboBoxMethod.setEnabled(True)
+            self.pythonModule.setEnabled(False)
+            self.pythonFunction.setEnabled(False)
+            
+        elif(self.comboBoxSource.currentText() == self.SOURCES[2]):
+            self.filePathSource.setEnabled(False)
+            self.pushButtonSource.setEnabled(False)
+            self.northingTop.setEnabled(True)
+            self.northingBottom.setEnabled(True)
+            self.eastingRight.setEnabled(True)
+            self.eastingLeft.setEnabled(True)
+            self.comboBoxMethod.setEnabled(False)
+            self.pythonModule.setEnabled(True)
+            self.pythonFunction.setEnabled(True)
+        
+        else:
+            return
+     
+    def showMessage(self, msg):
+                  
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText("This is a message box")
+        msg.setInformativeText("This is additional information")
+        msg.setWindowTitle("MessageBox demo")
+        msg.setDetailedText(msg)
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        msg.buttonClicked.connect(self.msgbtn)
+    
+        retval = msg.exec_()
+        print "value of pressed message box button:", retval
+        
+    def msgbtn(self, i):
+        print "Button pressed is:",i.text()
+        
+        
+        
+        
+        
