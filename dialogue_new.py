@@ -133,16 +133,16 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
     def checkOptions(self):
         
         if(self.comboBoxSource.currentText() == ""):
-            self.showMessage("Please select a source type.")
+            self.showErrorMessage("Please select a source type.")
             return False
         
         if(self.filePathNew.text() == None or self.filePathNew.text() == ""):
-            self.showMessage("Please provide an output file.")
+            self.showErrorMessage("Please provide an output file.")
             return False
         
         if(self.comboBoxSource.currentText() != self.SOURCES[2]):
             if(self.filePathSource.text() == None or self.filePathSource.text() == ""):
-                self.showMessage("Please select a source file.")
+                self.showErrorMessage("Please select a source file.")
                 return False
 
         if(self.comboBoxSource.currentText() != self.SOURCES[2]):
@@ -150,33 +150,26 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
                self.northingBottom.text() == None or self.northingBottom.text() == "" or
                self.eastingRight.text() == None or self.eastingRight.text() == "" or
                self.eastingLeft.text() == None or self.eastingLeft.text() == ""):
-                self.showMessage("Extent is mandatory for this source type.")
+                self.showErrorMessage("Extent is mandatory for this source type.")
                 return False               
             if(self.pythonModule.text() == None or self.pythonModule.text() == ""):
-                self.showMessage("Please select a Python module.")
+                self.showErrorMessage("Please select a Python module.")
                 return False
             if(self.pythonFunction.text() == None or self.pythonFunction.text() == ""):
-                self.showMessage("Please select a Python function in the module.")
+                self.showErrorMessage("Please select a Python function in the module.")
                 return False
             
         return True
      
-    def showMessage(self, msg):
+     
+    def showErrorMessage(self, mesg):
                   
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Information)
-        msg.setText("This is a message box")
-        msg.setInformativeText(msg)
-        msg.setWindowTitle("MessageBox demo")
-        msg.setDetailedText(msg)
-        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        msg.buttonClicked.connect(self.msgbtn)
-    
-        retval = msg.exec_()
-        print "value of pressed message box button:", retval
-        
-    def msgbtn(self, i):
-        print "Button pressed is:",i.text()
+        msgBox = QMessageBox()
+        msgBox.setIcon(QMessageBox.Warning)
+        msgBox.setText(mesg)
+        msgBox.setWindowTitle("Unable to proceed")
+        msgBox.exec_()
+
         
         
         
