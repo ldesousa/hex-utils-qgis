@@ -186,6 +186,7 @@ class HexUtilsQGis:
 
         # Create New dialogue
         self.dlgNew = DialogueNew()
+        
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -235,18 +236,10 @@ class HexUtilsQGis:
 
     def runNew(self):
         """Run method that performs all the real work"""
-        # show the dialog
+        # Show the dialog and set the interface instance
+        # Dialogue interaction is handed by the class itself
         self.dlgNew.show()
-        # Run the dialog event loop
-        result = self.dlgNew.exec_()
-        # See if OK was pressed
-        if result:
-#             if self.dlgNew.checkOptions():
-#                 self.dlgNew.showMessage("All good!")    
-                
-            self.iface.messageBar().pushMessage(
-                     "Info", "Button OK pressed", 
-                     level=QgsMessageBar.INFO) 
+        self.dlgNew.iface = self.iface 
                 
 
     def createChoropleth(self, layer, min, max, num_classes = 10):

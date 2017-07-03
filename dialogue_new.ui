@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Hexagonal Rasters</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonOK">
+  <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
      <x>160</x>

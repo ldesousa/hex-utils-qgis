@@ -25,6 +25,7 @@ import os
 
 from PyQt4 import QtGui, uic
 from PyQt4.QtGui import QMessageBox
+from qgis.gui import QgsMessageBar 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'dialogue_new.ui'))
@@ -33,6 +34,8 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 class DialogueNew(QtGui.QDialog, FORM_CLASS):
     
     SOURCES = ["ASCII squared raster", "CSV file", "Python function"]
+    
+    iface = None
     
     def __init__(self, parent=None):
         """Constructor."""
@@ -46,6 +49,19 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
         
         self.comboBoxSource.addItems(self.SOURCES)
         self.comboBoxSource.currentIndexChanged.connect(self.sourceChanged)
+        
+        self.buttonBox.accepted.connect(self.accept)
+        self.buttonBox.rejected.connect(self.reject)
+        
+        
+    def accept(self):
+        
+        self.checkOptions()
+        
+        
+    def reject(self):
+        
+        self.done(0)
         
         
     def sourceChanged(self, i):
