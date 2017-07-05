@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>516</width>
-    <height>469</height>
+    <height>429</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>428</y>
+     <y>390</y>
      <width>341</width>
      <height>30</height>
     </rect>
@@ -33,7 +33,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>368</y>
+     <y>320</y>
      <width>261</width>
      <height>14</height>
     </rect>
@@ -46,7 +46,7 @@
    <property name="geometry">
     <rect>
      <x>120</x>
-     <y>388</y>
+     <y>340</y>
      <width>331</width>
      <height>24</height>
     </rect>
@@ -56,7 +56,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>388</y>
+     <y>340</y>
      <width>41</width>
      <height>25</height>
     </rect>
@@ -100,7 +100,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>90</y>
+     <y>170</y>
      <width>261</width>
      <height>16</height>
     </rect>
@@ -116,7 +116,7 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>130</y>
+     <y>200</y>
      <width>151</width>
      <height>26</height>
     </rect>
@@ -129,7 +129,7 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>200</y>
+     <y>270</y>
      <width>151</width>
      <height>26</height>
     </rect>
@@ -142,7 +142,7 @@
    <property name="geometry">
     <rect>
      <x>350</x>
-     <y>160</y>
+     <y>230</y>
      <width>151</width>
      <height>26</height>
     </rect>
@@ -155,7 +155,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>160</y>
+     <y>230</y>
      <width>151</width>
      <height>26</height>
     </rect>
@@ -168,7 +168,7 @@
    <property name="geometry">
     <rect>
      <x>185</x>
-     <y>180</y>
+     <y>250</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -184,7 +184,7 @@
    <property name="geometry">
     <rect>
      <x>185</x>
-     <y>110</y>
+     <y>180</y>
      <width>91</width>
      <height>16</height>
     </rect>
@@ -200,7 +200,7 @@
    <property name="geometry">
     <rect>
      <x>355</x>
-     <y>140</y>
+     <y>210</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -216,7 +216,7 @@
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>141</y>
+     <y>211</y>
      <width>121</width>
      <height>16</height>
     </rect>
@@ -231,8 +231,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>13</x>
-     <y>271</y>
+     <x>10</x>
+     <y>112</y>
      <width>170</width>
      <height>28</height>
     </rect>
@@ -254,43 +254,14 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>18</x>
-     <y>251</y>
+     <x>10</x>
+     <y>92</y>
      <width>160</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Interpolation method</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labelPythonModule">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>236</x>
-     <y>254</y>
-     <width>180</width>
-     <height>10</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Python module:</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="pythonModule">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>230</x>
-     <y>269</y>
-     <width>271</width>
-     <height>31</height>
-    </rect>
+    <string>Interpolation method :</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="pythonFunction">
@@ -299,10 +270,10 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>320</y>
-     <width>271</width>
-     <height>30</height>
+     <x>200</x>
+     <y>112</y>
+     <width>261</width>
+     <height>31</height>
     </rect>
    </property>
   </widget>
@@ -312,8 +283,8 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>236</x>
-     <y>308</y>
+     <x>206</x>
+     <y>100</y>
      <width>180</width>
      <height>10</height>
     </rect>
@@ -324,7 +295,7 @@
   </widget>
   <widget class="QLineEdit" name="filePathSource">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -337,7 +308,7 @@
   </widget>
   <widget class="QLabel" name="labelPathSource">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -353,7 +324,7 @@
   </widget>
   <widget class="QPushButton" name="pushButtonSource">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>

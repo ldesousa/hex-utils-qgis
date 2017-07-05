@@ -84,8 +84,6 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
     def sourceChanged(self, i):
         
         if(self.comboBoxSource.currentText() == self.SOURCES[0]):
-            self.labelPathSource.setEnabled(True)
-            self.filePathSource.setEnabled(True)
             self.pushButtonSource.setEnabled(True)
             self.labelExtent.setEnabled(False)
             self.labelNorthingTop.setEnabled(False)
@@ -98,14 +96,10 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.eastingLeft.setEnabled(False)
             self.labelMethod.setEnabled(False)
             self.comboBoxMethod.setEnabled(False)
-            self.pythonModule.setEnabled(False)
             self.pythonFunction.setEnabled(False)
-            self.labelPythonModule.setEnabled(False)
             self.labelPythonFunction.setEnabled(False)
             
         elif(self.comboBoxSource.currentText() == self.SOURCES[1]):
-            self.labelPathSource.setEnabled(True)
-            self.filePathSource.setEnabled(True)
             self.pushButtonSource.setEnabled(True)
             self.labelExtent.setEnabled(True)
             self.labelNorthingTop.setEnabled(True)
@@ -118,14 +112,10 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.eastingLeft.setEnabled(True)
             self.labelMethod.setEnabled(True)
             self.comboBoxMethod.setEnabled(True)
-            self.pythonModule.setEnabled(False)
             self.pythonFunction.setEnabled(False)
-            self.labelPythonModule.setEnabled(False)
             self.labelPythonFunction.setEnabled(False)
             
         elif(self.comboBoxSource.currentText() == self.SOURCES[2]):
-            self.labelPathSource.setEnabled(False)
-            self.filePathSource.setEnabled(False)
             self.pushButtonSource.setEnabled(False)
             self.labelExtent.setEnabled(True)
             self.labelNorthingTop.setEnabled(True)
@@ -138,9 +128,7 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.eastingLeft.setEnabled(True)
             self.labelMethod.setEnabled(False)
             self.comboBoxMethod.setEnabled(False)
-            self.pythonModule.setEnabled(True)
             self.pythonFunction.setEnabled(True)            
-            self.labelPythonModule.setEnabled(True)
             self.labelPythonFunction.setEnabled(True)
         
         else:
@@ -157,10 +145,9 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.showErrorMessage("Please provide an output file.")
             return False
         
-        if(self.comboBoxSource.currentText() != self.SOURCES[2]):
-            if(self.filePathSource.text() == None or self.filePathSource.text() == ""):
-                self.showErrorMessage("Please select a source file.")
-                return False
+        if(self.filePathSource.text() == None or self.filePathSource.text() == ""):
+            self.showErrorMessage("Please select a source file.")
+            return False
 
         if(self.comboBoxSource.currentText() != self.SOURCES[2]):
             if(self.northingTop.text() == None or self.northingTop.text() == "" or 
