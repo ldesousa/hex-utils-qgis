@@ -24,7 +24,7 @@
 import os
 
 from PyQt4 import QtGui, uic
-from PyQt4.QtGui import QMessageBox
+from PyQt4.QtGui import QMessageBox, QFileDialog
 from qgis.gui import QgsMessageBar 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -53,6 +53,9 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
         
+        # Activate file search button
+        self.pushButtonSource.clicked.connect(self.selectFileSource)
+        
         
     def accept(self):
         
@@ -62,6 +65,20 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
     def reject(self):
         
         self.done(0)
+        
+    
+    def selectFileSource(self):
+        
+        extension = ""
+        if(self.comboBoxSource.currentText() == self.SOURCES[0]):
+            extension = '*.asc'
+        elif(self.comboBoxSource.currentText() == self.SOURCES[1]):
+            extension = '*.csv'
+        elif(self.comboBoxSource.currentText() == self.SOURCES[2]):
+            extension = '*.py'
+        
+        fileNameSource = QFileDialog.getOpenFileName(self, "Select file ","", extension);
+        self.filePathSource.setText(fileNameSource)
         
         
     def sourceChanged(self, i):
