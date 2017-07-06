@@ -23,9 +23,22 @@
 
 import os
 
+#from qgis.core import *
+from qgis.gui import QgsMessageBar
 from PyQt4 import QtGui, uic
 from PyQt4.QtGui import QMessageBox, QFileDialog
-from qgis.gui import QgsMessageBar 
+from PyQt4.QtCore import QProcess, QObject, pyqtSignal, pyqtSlot, SIGNAL, SLOT
+try:
+    from PyQt4.QtCore import QString
+except ImportError:
+    # we are using Python3 so QString is not defined
+    QString = type("")
+try:
+    # QGis 2 might mess QStringList
+    from PyQt4.QtCore import QStringList
+except ImportError:
+    QStringList = list 
+
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'dialogue_new.ui'))
@@ -34,6 +47,8 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 class DialogueNew(QtGui.QDialog, FORM_CLASS):
     
     SOURCES = ["ASCII squared raster", "CSV file", "Python function"]
+    METHODS = ["Multi-quadratic", "Nearest neighbour"]
+    METHODS_ABRV = ["mq", "nn"]
     
     iface = None
     
@@ -50,17 +65,39 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
         self.comboBoxSource.addItems(self.SOURCES)
         self.comboBoxSource.currentIndexChanged.connect(self.sourceChanged)
         
+        self.comboBoxMethod.addItems(self.METHODS)
+        
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
         
-        # Activate file search button
+        # Activate file search buttons
         self.pushButtonSource.clicked.connect(self.selectFileSource)
+        self.pushButtonOutput.clicked.connect(self.selectFileOutput)
         
         
     def accept(self):
         
-        self.checkOptions()
+        if(not self.checkOptions()):
+            return
         
+        if(self.comboBoxSource.currentText() == self.SOURCES[0]):
+            if(self.comboBoxMethod == self.METHODS[0]):
+                meth_abv = self.METHODS_ABRV[0]
+            else:
+                meth_abv = self.METHODS_ABRV[1]
+            args = QStringList()
+            args.append("-i" + self.filePathSource.text())
+            args.append("-o" + self.filePathOutput.text())
+            args.append("-m" + meth_abv)
+            self.proc = QProcess()
+            self.proc.start("asc2hasc", args)
+            self.proc.setProcessChannelMode(QProcess.MergedChannels);
+            QObject.connect(self.proc, SIGNAL("readyReadStandardOutput()"), self, SLOT("readStdOutput()"))
+            #self.setGeometry(self._parent.x(), self._parent.y(), self.width(), 610)
+
+    @pyqtSlot()
+    def readStdOutput(self):
+        self.commandOutput.append(QString(self.proc.readAllStandardOutput()))        
         
     def reject(self):
         
@@ -77,8 +114,14 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
         elif(self.comboBoxSource.currentText() == self.SOURCES[2]):
             extension = '*.py'
         
-        fileNameSource = QFileDialog.getOpenFileName(self, "Select file ","", extension);
-        self.filePathSource.setText(fileNameSource)
+        self.fileNameSource = QFileDialog.getOpenFileName(self, "Select file ","", extension);
+        self.filePathSource.setText(self.fileNameSource)
+        
+        
+    def selectFileOutput(self):
+                
+        self.fileNameOutput = QFileDialog.getOpenFileName(self, "Select file ","", "*.hasc");
+        self.filePathOutput.setText(self.fileNameOutput)
         
         
     def sourceChanged(self, i):
@@ -94,8 +137,8 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.northingBottom.setEnabled(False)
             self.eastingRight.setEnabled(False)
             self.eastingLeft.setEnabled(False)
-            self.labelMethod.setEnabled(False)
-            self.comboBoxMethod.setEnabled(False)
+            self.labelMethod.setEnabled(True)
+            self.comboBoxMethod.setEnabled(True)
             self.pythonFunction.setEnabled(False)
             self.labelPythonFunction.setEnabled(False)
             
@@ -141,7 +184,7 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.showErrorMessage("Please select a source type.")
             return False
         
-        if(self.filePathNew.text() == None or self.filePathNew.text() == ""):
+        if(self.filePathOutput.text() == None or self.filePathOutput.text() == ""):
             self.showErrorMessage("Please provide an output file.")
             return False
         
@@ -149,7 +192,7 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.showErrorMessage("Please select a source file.")
             return False
 
-        if(self.comboBoxSource.currentText() != self.SOURCES[2]):
+        if(self.comboBoxSource.currentText() == self.SOURCES[2]):
             if(self.northingTop.text() == None or self.northingTop.text() == "" or 
                self.northingBottom.text() == None or self.northingBottom.text() == "" or
                self.eastingRight.text() == None or self.eastingRight.text() == "" or
