@@ -99,12 +99,26 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             args = QStringList()
             args.append("-i" + self.filePathSource.text())
             args.append("-o" + self.filePathOutput.text())
-            args.append("-s" + self.textOption.text())
+            args.append("-s" + self.cellSide.text())
             self.proc = QProcess()
             self.proc.start("csv2hasc", args)
             self.proc.setProcessChannelMode(QProcess.MergedChannels);
             QObject.connect(self.proc, SIGNAL("readyReadStandardOutput()"), self, SLOT("readStdOutput()"))
             
+        if(self.comboBoxSource.currentText() == self.SOURCES[2]):
+            args = QStringList()
+            args.append("-m" + self.filePathSource.text())
+            args.append("-o" + self.filePathOutput.text())
+            args.append("-f" + self.pythonFunction.text())
+            args.append("-s" + self.cellSide.text())
+            args.append("-x" + self.eastingRight.text())
+            args.append("-X" + self.eastingLeft.text())
+            args.append("-y" + self.northingBottom.text())
+            args.append("-Y" + self.northingTop.text())
+            self.proc = QProcess()
+            self.proc.start("surface2hasc", args)
+            self.proc.setProcessChannelMode(QProcess.MergedChannels);
+            QObject.connect(self.proc, SIGNAL("readyReadStandardOutput()"), self, SLOT("readStdOutput()"))  
 
     @pyqtSlot()
     def readStdOutput(self):
@@ -151,8 +165,10 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.eastingLeft.setEnabled(False)
             self.labelMethod.setEnabled(True)
             self.comboBoxMethod.setEnabled(True)
-            self.textOption.setEnabled(False)
-            self.labelTextOption.setEnabled(False)
+            self.pythonFunction.setEnabled(False)
+            self.labelPythonFunction.setEnabled(False)
+            self.cellSide.setEnabled(False)
+            self.labelCellSide.setEnabled(False)
             
         elif(self.comboBoxSource.currentText() == self.SOURCES[1]):
             self.pushButtonSource.setEnabled(True)
@@ -167,12 +183,13 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.eastingLeft.setEnabled(False)
             self.labelMethod.setEnabled(False)
             self.comboBoxMethod.setEnabled(False)
-            self.textOption.setEnabled(True)
-            self.labelTextOption.setEnabled(True)
-            self.labelTextOption.setText("Cell side")
+            self.pythonFunction.setEnabled(False)
+            self.labelPythonFunction.setEnabled(False)
+            self.cellSide.setEnabled(True)
+            self.labelCellSide.setEnabled(True)
             
         elif(self.comboBoxSource.currentText() == self.SOURCES[2]):
-            self.pushButtonSource.setEnabled(False)
+            self.pushButtonSource.setEnabled(True)
             self.labelExtent.setEnabled(True)
             self.labelNorthingTop.setEnabled(True)
             self.labelNorthingBottom.setEnabled(True)
@@ -184,9 +201,10 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.eastingLeft.setEnabled(True)
             self.labelMethod.setEnabled(False)
             self.comboBoxMethod.setEnabled(False)
-            self.textOption.setEnabled(True)            
-            self.labelTextOption.setEnabled(True)
-            self.labelTextOption.setText("Function")
+            self.pythonFunction.setEnabled(True)            
+            self.labelPythonFunction.setEnabled(True)
+            self.cellSide.setEnabled(True)
+            self.labelCellSide.setEnabled(True)
         
         else:
             return
@@ -206,17 +224,19 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.showErrorMessage("Please select a source file.")
             return False
 
-        if(self.comboBoxSource.currentText() == self.SOURCES[2]):
+        if(self.comboBoxSource.currentText() != self.SOURCES[0]):
             if(self.northingTop.text() == None or self.northingTop.text() == "" or 
                self.northingBottom.text() == None or self.northingBottom.text() == "" or
                self.eastingRight.text() == None or self.eastingRight.text() == "" or
                self.eastingLeft.text() == None or self.eastingLeft.text() == ""):
                 self.showErrorMessage("Extent is mandatory for this source type.")
-                return False               
-            if(self.pythonModule.text() == None or self.pythonModule.text() == ""):
-                self.showErrorMessage("Please select a Python module.")
+                return False     
+            if(self.cellSide.text() == None or self.cellSide.text() == ""):
+                self.showErrorMessage("A cell side length is required for this source type.")
                 return False
-            if(self.textOption.text() == None or self.textOption.text() == ""):
+        
+        if(self.comboBoxSource.currentText() == self.SOURCES[2]):              
+            if(self.pythonFunction.text() == None or self.pythonFunction.text() == ""):
                 self.showErrorMessage("Please select a Python function in the module.")
                 return False
             

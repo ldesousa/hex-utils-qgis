@@ -121,6 +121,9 @@
      <height>26</height>
     </rect>
    </property>
+   <property name="text">
+    <string>10</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="northingBottom">
    <property name="enabled">
@@ -133,6 +136,9 @@
      <width>151</width>
      <height>26</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="eastingLeft">
@@ -147,6 +153,9 @@
      <height>26</height>
     </rect>
    </property>
+   <property name="text">
+    <string>10</string>
+   </property>
   </widget>
   <widget class="QLineEdit" name="eastingRight">
    <property name="enabled">
@@ -159,6 +168,9 @@
      <width>151</width>
      <height>26</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
    </property>
   </widget>
   <widget class="QLabel" name="labelNorthingBottom">
@@ -254,7 +266,7 @@
     <string>Interpolation method :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="textOption">
+  <widget class="QLineEdit" name="pythonFunction">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -262,21 +274,21 @@
     <rect>
      <x>200</x>
      <y>112</y>
-     <width>261</width>
+     <width>171</width>
      <height>31</height>
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="labelTextOption">
+  <widget class="QLabel" name="labelPythonFunction">
    <property name="enabled">
     <bool>false</bool>
    </property>
    <property name="geometry">
     <rect>
      <x>206</x>
-     <y>100</y>
-     <width>180</width>
-     <height>10</height>
+     <y>90</y>
+     <width>111</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
@@ -335,6 +347,35 @@
      <y>430</y>
      <width>491</width>
      <height>171</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelCellSide">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>90</y>
+     <width>111</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cell side:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cellSide">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>112</y>
+     <width>121</width>
+     <height>31</height>
     </rect>
    </property>
   </widget>
