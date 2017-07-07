@@ -254,7 +254,7 @@
     <string>Interpolation method :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="pythonFunction">
+  <widget class="QLineEdit" name="textOption">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -267,7 +267,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="labelPythonFunction">
+  <widget class="QLabel" name="labelTextOption">
    <property name="enabled">
     <bool>false</bool>
    </property>

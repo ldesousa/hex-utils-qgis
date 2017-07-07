@@ -94,10 +94,22 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.proc.setProcessChannelMode(QProcess.MergedChannels);
             QObject.connect(self.proc, SIGNAL("readyReadStandardOutput()"), self, SLOT("readStdOutput()"))
             #self.setGeometry(self._parent.x(), self._parent.y(), self.width(), 610)
+            
+        if(self.comboBoxSource.currentText() == self.SOURCES[1]):
+            args = QStringList()
+            args.append("-i" + self.filePathSource.text())
+            args.append("-o" + self.filePathOutput.text())
+            args.append("-s" + self.textOption.text())
+            self.proc = QProcess()
+            self.proc.start("csv2hasc", args)
+            self.proc.setProcessChannelMode(QProcess.MergedChannels);
+            QObject.connect(self.proc, SIGNAL("readyReadStandardOutput()"), self, SLOT("readStdOutput()"))
+            
 
     @pyqtSlot()
     def readStdOutput(self):
         self.commandOutput.append(QString(self.proc.readAllStandardOutput()))        
+        
         
     def reject(self):
         
@@ -139,24 +151,25 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.eastingLeft.setEnabled(False)
             self.labelMethod.setEnabled(True)
             self.comboBoxMethod.setEnabled(True)
-            self.pythonFunction.setEnabled(False)
-            self.labelPythonFunction.setEnabled(False)
+            self.textOption.setEnabled(False)
+            self.labelTextOption.setEnabled(False)
             
         elif(self.comboBoxSource.currentText() == self.SOURCES[1]):
             self.pushButtonSource.setEnabled(True)
-            self.labelExtent.setEnabled(True)
-            self.labelNorthingTop.setEnabled(True)
-            self.labelNorthingBottom.setEnabled(True)
-            self.labelEastingRight.setEnabled(True)
-            self.labelEastingLeft.setEnabled(True)
-            self.northingTop.setEnabled(True)
-            self.northingBottom.setEnabled(True)
-            self.eastingRight.setEnabled(True)
-            self.eastingLeft.setEnabled(True)
-            self.labelMethod.setEnabled(True)
-            self.comboBoxMethod.setEnabled(True)
-            self.pythonFunction.setEnabled(False)
-            self.labelPythonFunction.setEnabled(False)
+            self.labelExtent.setEnabled(False)
+            self.labelNorthingTop.setEnabled(False)
+            self.labelNorthingBottom.setEnabled(False)
+            self.labelEastingRight.setEnabled(False)
+            self.labelEastingLeft.setEnabled(False)
+            self.northingTop.setEnabled(False)
+            self.northingBottom.setEnabled(False)
+            self.eastingRight.setEnabled(False)
+            self.eastingLeft.setEnabled(False)
+            self.labelMethod.setEnabled(False)
+            self.comboBoxMethod.setEnabled(False)
+            self.textOption.setEnabled(True)
+            self.labelTextOption.setEnabled(True)
+            self.labelTextOption.setText("Cell side")
             
         elif(self.comboBoxSource.currentText() == self.SOURCES[2]):
             self.pushButtonSource.setEnabled(False)
@@ -171,8 +184,9 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             self.eastingLeft.setEnabled(True)
             self.labelMethod.setEnabled(False)
             self.comboBoxMethod.setEnabled(False)
-            self.pythonFunction.setEnabled(True)            
-            self.labelPythonFunction.setEnabled(True)
+            self.textOption.setEnabled(True)            
+            self.labelTextOption.setEnabled(True)
+            self.labelTextOption.setText("Function")
         
         else:
             return
@@ -202,7 +216,7 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
             if(self.pythonModule.text() == None or self.pythonModule.text() == ""):
                 self.showErrorMessage("Please select a Python module.")
                 return False
-            if(self.pythonFunction.text() == None or self.pythonFunction.text() == ""):
+            if(self.textOption.text() == None or self.textOption.text() == ""):
                 self.showErrorMessage("Please select a Python function in the module.")
                 return False
             
