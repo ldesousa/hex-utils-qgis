@@ -26,7 +26,7 @@ import os
 #from qgis.core import *
 from qgis.gui import QgsMessageBar
 from PyQt4 import QtGui, uic
-from PyQt4.QtGui import QMessageBox, QFileDialog
+from PyQt4.QtGui import QMessageBox, QFileDialog, QDialogButtonBox, QLayout
 from PyQt4.QtCore import QProcess, QObject, pyqtSignal, pyqtSlot, SIGNAL, SLOT
 try:
     from PyQt4.QtCore import QString
@@ -67,6 +67,8 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
         
         self.comboBoxMethod.addItems(self.METHODS)
         
+        self.buttonBox.button(QDialogButtonBox.Ok).setText("Run")
+        self.buttonBox.button(QDialogButtonBox.Cancel).setText("Exit")
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
         
@@ -74,11 +76,15 @@ class DialogueNew(QtGui.QDialog, FORM_CLASS):
         self.pushButtonSource.clicked.connect(self.selectFileSource)
         self.pushButtonOutput.clicked.connect(self.selectFileOutput)
         
+        self.resize(520, 430)
+        
         
     def accept(self):
         
         if(not self.checkOptions()):
             return
+        
+        self.resize(520, 610)
         
         if(self.comboBoxSource.currentText() == self.SOURCES[0]):
             if(self.comboBoxMethod == self.METHODS[0]):
