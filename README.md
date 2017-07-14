@@ -51,7 +51,12 @@ other installation options.
 Installing from the QGis plug-in repository
 -------------------------------------------------------------------------------
 
-Coming soon.
+1. Open the plugi-ns management dialogue by accessing the menus *Plugins* -> *Manage and Install Plugins...*
+
+2. Switch to the *Settings* tab and tick on the "Experimental plugins* option.
+
+3. Switch back to the *All* tab and search for "HexASCII". Select the plug-in from the list and click *Install plugin*.
+
 
 Installing from GitHub
 -------------------------------------------------------------------------------
